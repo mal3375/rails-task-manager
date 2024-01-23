@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-
+before_action :set_task, only [:show, :destroy]
   def index
     @tasks = Task.all
   end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_path, status: :see_other, notice: 'Task was successfully destroyed.'
+    redirect_to tasks_path(@task), status: :see_other, notice: 'Task was successfully destroyed.'
   end
 
   private

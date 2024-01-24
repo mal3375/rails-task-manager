@@ -1,13 +1,11 @@
 class TasksController < ApplicationController
-before_action :set_task, only [:show, :destroy]
+  before_action :set_task, only: %i[show edit update destroy]
+
   def index
     @tasks = Task.all
   end
 
-  def show
-    @task = Task.find(params[:id])
-    #redirect_to task_path(@task)
-  end
+  def show(); end
 
   def new
     @task = Task.new
@@ -19,18 +17,14 @@ before_action :set_task, only [:show, :destroy]
     redirect_to task_path(@task)
   end
 
-  def edit
-    @task = Task.find(params[:id])
-    #redirect_to task_path(@task)
-  end
+  def edit(); end
 
   def update
-    @task.update(params[:id])
-    #redirect_to restaurant_path(@restaurant)
+    @task.update(task_params)
+    redirect_to task_path(@task)
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     redirect_to tasks_path(@task), status: :see_other, notice: 'Task was successfully destroyed.'
   end
